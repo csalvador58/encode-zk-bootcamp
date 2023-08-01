@@ -61,12 +61,11 @@ impl StateImpl of StateTrait {
         match message {
             Message::ChangeColor((x, y ,z)) => {
                 let State{color, position, quit,} = self;
-                self = State { color: (x, y ,z), position: position, quit: quit,};
+                self.change_color((x,y,z));
                 'changing color'.print();
             },
             Message::Quit(()) => {
-                let State{color, position, quit,} = self;
-                self = State { color: color, position: position, quit: true,};
+                self.quit();
                 'quitting'.print();
             },
             Message::Echo(value) => {
@@ -74,7 +73,7 @@ impl StateImpl of StateTrait {
             },
             Message::Move(new_position) => {
                 let State{color, position, quit,} = self;
-                self = State { color: color, position: new_position, quit: quit,};
+                self.move_position(new_position);
                 'Move'.print();
             }
         }
